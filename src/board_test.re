@@ -60,8 +60,7 @@ describe(
         /* When */
         let actual = updateBoard(board, R1, C1, O);
         /* Then */
-        let expected = ((X, Empty, Empty), (Empty, Empty, Empty), (Empty, Empty, Empty));
-        Expect.(expect(actual) |> toEqual(expected))
+        Expect.(expect(actual) |> toBe(board))
       }
     )
   }
@@ -103,5 +102,38 @@ describe(
         Expect.(expect(actual) |> toEqual(true))
       }
     )
+  }
+);
+
+describe(
+  "getRowLine",
+  () => {
+    let board = ((X, O, X), (Empty, O, Empty), (Empty, O, X));
+    let (r1, r2, r3) = board;
+    let suitesCase = [(R1, r1), (R2, r2), (R3, r3)];
+    suitesCase
+    |> List.iter(
+         ((rId, expectedRow)) =>
+           test(
+             "should return correct row for rowId: " ++ row_to_str(rId),
+             () => Expect.(expect(getRowLine(board, rId)) |> toEqual(expectedRow))
+           )
+       )
+  }
+);
+
+describe(
+  "getColumnLine",
+  () => {
+    let board = ((X, O, X), (Empty, O, Empty), (Empty, O, X));
+    let suitesCase = [(C1, (X, Empty, Empty)), (C2, (O, O, O)), (C3, (X, Empty, X))];
+    suitesCase
+    |> List.iter(
+         ((cId, expectedColumn)) =>
+           test(
+             "should return correct row for colId: " ++ col_to_str(cId),
+             () => Expect.(expect(getColumnLine(board, cId)) |> toEqual(expectedColumn))
+           )
+       )
   }
 );

@@ -30,7 +30,7 @@ let make = (_children) => {
     | (TokenAdded(rId, cId), Turn(p)) =>
       let updateBoard = updateBoard(state.board, rId, cId, getTokenForPlayer(p));
       ReasonReact.Update({
-        progress: updateBoard == state.board ? Turn(p) : Turn(p === X ? O : X),
+        progress: updateBoard === state.board ? Turn(p) : Turn(p === X ? O : X),
         board: updateBoard
       })
     | _ => ReasonReact.NoUpdate

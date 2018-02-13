@@ -75,19 +75,22 @@ let updateBoard = (board: board, rid: rowId, cid: colId, value: token) => {
   switch rid {
   | R1 =>
     let r = updateRow(r1, cid, value);
-    (r, r2, r3)
+    r === r1 ? board : (r, r2, r3)
   | R2 =>
     let r = updateRow(r2, cid, value);
-    (r1, r, r3)
+    r === r2 ? board : (r1, r, r3)
   | R3 =>
     let r = updateRow(r3, cid, value);
-    (r1, r2, r)
+    r === r3 ? board : (r1, r2, r)
   }
 };
 
 type line = (token, token, token);
 
-let isLineFullWith = (l: line, t: token) => l === (t, t, t);
+let isLineFullWith = (l: line, t: token) => {
+  let (t1, t2, t3) = l;
+  t1 === t && t2 === t && t3 === t
+};
 
 let getRowLine = (board: board, rId: rowId) => {
   let (r1, r2, r3) = board;
@@ -98,7 +101,7 @@ let getRowLine = (board: board, rId: rowId) => {
   }
 };
 
-let getColLine = (board: board, colId: colId) => {
+let getColumnLine = (board: board, colId: colId) => {
   let ((r1c1, r1c2, r1c3), (r2c1, r2c2, r2c3), (r3c1, r3c2, r3c3)) = board;
   switch colId {
   | C1 => (r1c1, r2c1, r3c1)
