@@ -87,7 +87,14 @@ let updateBoard = (board: board, rid: rowId, cid: colId, value: token) => {
 
 type line = (token, token, token);
 
-let isLineFullWith = (l: line, t: token) => {
+let isLineContainToken = (t: token, (t1, t2, t3): line) => t1 === t || t2 === t || t3 === t;
+
+let isBoardFull = ((r1, r2, r3): board) =>
+  ! (
+    isLineContainToken(Empty, r1) || isLineContainToken(Empty, r2) || isLineContainToken(Empty, r3)
+  );
+
+let isLineFullWith = (t: token, l: line) => {
   let (t1, t2, t3) = l;
   t1 === t && t2 === t && t3 === t
 };

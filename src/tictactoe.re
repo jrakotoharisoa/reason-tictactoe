@@ -28,11 +28,20 @@ let make = (_children) => {
   reducer: (action, state) =>
     switch (action, state.progress) {
     | (TokenAdded(rId, cId), Turn(p)) =>
-      let updateBoard = updateBoard(state.board, rId, cId, getTokenForPlayer(p));
-      ReasonReact.Update({
-        progress: updateBoard === state.board ? Turn(p) : Turn(p === X ? O : X),
-        board: updateBoard
-      })
+      let currentToken = getTokenForPlayer(p);
+      let updateBoard = updateBoard(state.board, rId, cId, currentToken);
+      let rowComplete = getRowLine(updateBoard, rId) |> isLineFullWith(currentToken);
+      let colComplete = getColumnLine(updateBoard, cId) |> isLineFullWith(currentToken);
+      if (rowComplete || colComplete) {
+        ReasonReact.Update({progress: Win(p), board: updateBoard})
+      } else if (! isBoardFull(updateBoard)) {
+        ReasonReact.Update({
+          progress: updateBoard === state.board ? Turn(p) : Turn(p === X ? O : X),
+          board: updateBoard
+        })
+      } else {
+        ReasonReact.Update({progress: Draw, board: updateBoard})
+      }
     | _ => ReasonReact.NoUpdate
     },
   render: ({state, send}) => {

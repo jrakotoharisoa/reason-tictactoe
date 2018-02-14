@@ -10,7 +10,7 @@ describe(
   "getToken",
   () => {
     let board = ((X, O, X), (Empty, O, Empty), (Empty, O, X));
-    let suitesCase = [
+    let testCases = [
       (R1, C1, X),
       (R1, C2, O),
       (R1, C3, X),
@@ -21,18 +21,11 @@ describe(
       (R3, C2, O),
       (R3, C3, X)
     ];
-    List.iter(
-      ((rId, cId, expectedToken)) => {
-        test(
-          "should return the right token for board coordinates "
-          ++ row_to_str(rId)
-          ++ ","
-          ++ col_to_str(cId),
-          () => Expect.(expect(getToken(board, rId, cId)) |> toBe(expectedToken))
-        );
-        ()
-      },
-      suitesCase
+    testAll(
+      "should return the right token for board coordinates",
+      testCases,
+      ((rId, cId, expectedToken)) =>
+        Expect.(expect(getToken(board, rId, cId)) |> toBe(expectedToken))
     )
   }
 );
@@ -67,6 +60,34 @@ describe(
 );
 
 describe(
+  "isBoardFull",
+  () => {
+    test(
+      "should return true if board is full",
+      () => {
+        /* Given */
+        let board = ((X, O, X), (O, X, X), (X, O, O));
+        /* When */
+        let actual = isBoardFull(board);
+        /* Then */
+        Expect.(expect(actual) |> toBe(true))
+      }
+    );
+    test(
+      "should return false if board is not full",
+      () => {
+        /* Given */
+        let board = ((X, O, Empty), (O, X, X), (X, O, O));
+        /* When */
+        let actual = isBoardFull(board);
+        /* Then */
+        Expect.(expect(actual) |> toBe(false))
+      }
+    )
+  }
+);
+
+describe(
   "isLineFullWith",
   () => {
     test(
@@ -75,7 +96,7 @@ describe(
         /* Given */
         let line = (Empty, Empty, Empty);
         /* When */
-        let actual = isLineFullWith(line, X);
+        let actual = isLineFullWith(X, line);
         /* Then */
         Expect.(expect(actual) |> toEqual(false))
       }
@@ -86,7 +107,7 @@ describe(
         /* Given */
         let line = (X, X, X);
         /* When */
-        let actual = isLineFullWith(line, O);
+        let actual = isLineFullWith(O, line);
         /* Then */
         Expect.(expect(actual) |> toEqual(false))
       }
@@ -97,7 +118,7 @@ describe(
         /* Given */
         let line = (X, X, X);
         /* When */
-        let actual = isLineFullWith(line, X);
+        let actual = isLineFullWith(X, line);
         /* Then */
         Expect.(expect(actual) |> toEqual(true))
       }
@@ -110,15 +131,12 @@ describe(
   () => {
     let board = ((X, O, X), (Empty, O, Empty), (Empty, O, X));
     let (r1, r2, r3) = board;
-    let suitesCase = [(R1, r1), (R2, r2), (R3, r3)];
-    suitesCase
-    |> List.iter(
-         ((rId, expectedRow)) =>
-           test(
-             "should return correct row for rowId: " ++ row_to_str(rId),
-             () => Expect.(expect(getRowLine(board, rId)) |> toEqual(expectedRow))
-           )
-       )
+    let testCases = [(R1, r1), (R2, r2), (R3, r3)];
+    testAll(
+      "should return correct row",
+      testCases,
+      ((rId, expectedRow)) => Expect.(expect(getRowLine(board, rId)) |> toEqual(expectedRow))
+    )
   }
 );
 
@@ -126,14 +144,12 @@ describe(
   "getColumnLine",
   () => {
     let board = ((X, O, X), (Empty, O, Empty), (Empty, O, X));
-    let suitesCase = [(C1, (X, Empty, Empty)), (C2, (O, O, O)), (C3, (X, Empty, X))];
-    suitesCase
-    |> List.iter(
-         ((cId, expectedColumn)) =>
-           test(
-             "should return correct row for colId: " ++ col_to_str(cId),
-             () => Expect.(expect(getColumnLine(board, cId)) |> toEqual(expectedColumn))
-           )
-       )
+    let testCases = [(C1, (X, Empty, Empty)), (C2, (O, O, O)), (C3, (X, Empty, X))];
+    testAll(
+      "should return correct col",
+      testCases,
+      ((cId, expectedColumn)) =>
+        Expect.(expect(getColumnLine(board, cId)) |> toEqual(expectedColumn))
+    )
   }
 );
