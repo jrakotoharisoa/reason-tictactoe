@@ -19,6 +19,17 @@ type action =
 
 let component = ReasonReact.reducerComponent("TicTacToe");
 
+let isWinByToken = (board: board, rId: rowId, cId: colId, token: token) =>
+  if (getRowLine(board, rId) |> isLineFullWith(token)) {
+    true
+  } else if (getColumnLine(board, cId) |> isLineFullWith(token)) {
+    true
+  } else {
+    getDiagonalLines(board)
+    |> List.map(isLineFullWith(token))
+    |> List.fold_left((res, isFull) => res || isFull, false)
+  };
+
 let make = (_children) => {
   ...component,
   initialState: () => {
@@ -30,9 +41,7 @@ let make = (_children) => {
     | (TokenAdded(rId, cId), Turn(p)) =>
       let currentToken = getTokenForPlayer(p);
       let updateBoard = updateBoard(state.board, rId, cId, currentToken);
-      let rowComplete = getRowLine(updateBoard, rId) |> isLineFullWith(currentToken);
-      let colComplete = getColumnLine(updateBoard, cId) |> isLineFullWith(currentToken);
-      if (rowComplete || colComplete) {
+      if (isWinByToken(updateBoard, rId, cId, currentToken)) {
         ReasonReact.Update({progress: Win(p), board: updateBoard})
       } else if (! isBoardFull(updateBoard)) {
         ReasonReact.Update({

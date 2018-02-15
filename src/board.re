@@ -116,3 +116,8 @@ let getColumnLine = (board: board, colId: colId) => {
   | C3 => (r1c3, r2c3, r3c3)
   }
 };
+
+let getDiagonalLines = (board: board) : list(line) => {
+  let ((r1c1, _, r1c3), (_, r2c2, _), (r3c1, _, r3c3)) = board;
+  [(r1c1, r2c2, r3c3), (r1c3, r2c2, r3c1)]
+};
