@@ -69,7 +69,10 @@ let make = (_children) => {
           |> List.flatten
           |> List.map(
                ((rId, cId)) =>
-                 <div className="cell" onClick=((_event) => send(TokenAdded(rId, cId)))>
+                 <div
+                   className="cell"
+                   key=(row_to_str(rId) ++ col_to_str(cId))
+                   onClick=((_event) => send(TokenAdded(rId, cId)))>
                    (ReasonReact.stringToElement(token_to_str(getToken(state.board, rId, cId))))
                  </div>
              )
