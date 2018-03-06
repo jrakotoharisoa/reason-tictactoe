@@ -4,6 +4,6 @@ type player =
 
 let p_to_str = (p: player) =>
   switch p {
-  | X => "1"
-  | O => "2"
+  | X => "X"
+  | O => "O"
   };

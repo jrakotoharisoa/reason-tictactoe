@@ -56,12 +56,12 @@ let make = (_children) => {
   render: ({state, send}) => {
     let title =
       switch state.progress {
-      | Turn(p) => "Player" ++ p_to_str(p) ++ "'s turn"
-      | Win(p) => "Player" ++ p_to_str(p) ++ "won"
+      | Turn(p) => "Player " ++ p_to_str(p) ++ " turn"
+      | Win(p) => "Player " ++ p_to_str(p) ++ " won"
       | Draw => "It's a draw"
       };
     <div className="tic-tac-toe">
-      <div className="title"> (ReasonReact.stringToElement("Tic Tac Toe - " ++ title)) </div>
+      <div className="title"> (ReasonReact.stringToElement(title)) </div>
       <div className="board">
         (
           [R1, R2, R3]

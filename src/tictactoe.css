@@ -22,3 +22,9 @@
   font-size: 16vw;
   font-weight: bold;
 }
+
+.tic-tac-toe .title {
+  font-size: 5vw;
+  margin: 5vh 0;
+  text-transform: uppercase;
+}
