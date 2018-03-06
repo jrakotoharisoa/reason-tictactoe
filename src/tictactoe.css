@@ -1,9 +1,24 @@
+.tic-tac-toe {
+  align-self: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .tic-tac-toe .board {
+  --content-width: 60vw;
+  --columns: 3;
+  --row-size: calc(var(--content-width)/ var(--columns));
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(100px, auto);
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-auto-rows: var(--row-size);
+  max-width: var(--content-width);
+  width: 100%;
+
 }
 
 .tic-tac-toe .cell {
   border: 1px solid black;
+  font-size: 16vw;
+  font-weight: bold;
 }
