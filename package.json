@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "bs-jest": "^0.3.2",
-    "reason-react": "^0.3.2"
+    "reason-react": "^0.3.4"
   },
   "homepage": "https://jrakotoharisoa.github.io/reason-tictactoe/"
 }
