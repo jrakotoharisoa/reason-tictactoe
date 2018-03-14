@@ -6,12 +6,12 @@ let component = ReasonReact.statelessComponent("App");
 
 let make = (~message, _children) => {
   ...component,
-  render: (_self) =>
+  render: _self =>
     <div className="App">
       <div className="App-header">
         <img src=logo className="App-logo" alt="logo" />
         <h2> (ReasonReact.stringToElement(message)) </h2>
       </div>
       <Tictactoe />
-    </div>
+    </div>,
 };
