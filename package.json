@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bs-platform": "^2.2.2",
     "gh-pages": "^1.1.0",
+    "lottie-web": "^5.1.8",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reason-scripts": "^0.8.0"
