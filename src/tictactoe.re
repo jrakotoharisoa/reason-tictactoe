@@ -66,7 +66,14 @@ let make = _children => {
       | Draw => "It's a draw"
       };
     <div className="tic-tac-toe">
-      <div className="title"> (ReasonReact.stringToElement(title)) </div>
+      <div className="title">
+        <div className="title__main">
+          (ReasonReact.stringToElement("TIC TAC TOE"))
+        </div>
+        <div className="title__sub">
+          (ReasonReact.stringToElement(title))
+        </div>
+      </div>
       <div className="board">
         (
           [R1, R2, R3]
@@ -74,7 +81,7 @@ let make = _children => {
           |> List.flatten
           |> List.map(((rId, cId)) =>
                <div
-                 className="cell"
+                 className="board__cell"
                  key=(row_to_str(rId) ++ col_to_str(cId))
                  onClick=(_event => send(TokenAdded(rId, cId)))>
                  (
