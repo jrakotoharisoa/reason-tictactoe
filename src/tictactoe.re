@@ -1,5 +1,9 @@
 [%bs.raw {|require('./tictactoe.css')|}];
 
+let animationDataPlayer1 = [%bs.raw {|require('./x.json')|}];
+
+let animationDataPlayer2 = [%bs.raw {|require('./o.json')|}];
+
 open Player;
 
 open Board;
@@ -85,9 +89,26 @@ let make = _children => {
                  key=(row_to_str(rId) ++ col_to_str(cId))
                  onClick=(_event => send(TokenAdded(rId, cId)))>
                  (
-                   ReasonReact.stringToElement(
-                     token_to_str(getToken(state.board, rId, cId)),
-                   )
+                   switch (getToken(state.board, rId, cId)) {
+                   | Board.X =>
+                     <Lottie
+                       options={
+                         animationData: animationDataPlayer1,
+                         loop: true,
+                         autoplay: true,
+                       }
+                     />
+                   | Board.O =>
+                     <Lottie
+                       options={
+                         animationData: animationDataPlayer2,
+                         loop: false,
+                         autoplay: true,
+                       }
+                     />
+                   | Empty =>
+                     ReasonReact.stringToElement(token_to_str(Empty))
+                   }
                  )
                </div>
              )
