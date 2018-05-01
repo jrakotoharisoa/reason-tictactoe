@@ -24,7 +24,13 @@
 }
 
 .tic-tac-toe .title {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+
   font-size: 5vw;
-  margin: 5vh 0;
   text-transform: uppercase;
+  width: 100%;
+  text-align: center;
 }
