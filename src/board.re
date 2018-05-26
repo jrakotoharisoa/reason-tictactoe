@@ -1,22 +1,8 @@
 open Player;
 
 type token =
-  | X
-  | O
+  | Mark(player)
   | Empty;
-
-let getTokenForPlayer = (p: player) =>
-  switch (p) {
-  | X => X
-  | O => O
-  };
-
-let token_to_str = (token: token) =>
-  switch (token) {
-  | X => "X"
-  | O => "O"
-  | Empty => ""
-  };
 
 type row = (token, token, token);
 
@@ -99,7 +85,7 @@ let isBoardFull = ((r1, r2, r3): board) =>
 
 let isLineFullWith = (t: token, l: line) => {
   let (t1, t2, t3) = l;
-  t1 === t && t2 === t && t3 === t;
+  t1 == t && t2 == t && t3 == t;
 };
 
 let getRowLine = (board: board, rId: rowId) => {

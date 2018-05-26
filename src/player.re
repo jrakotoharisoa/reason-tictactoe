@@ -1,9 +1,9 @@
 type player =
-  | X
-  | O;
+  | Cross
+  | Circle;
 
-let p_to_str = (p: player) =>
+let toString = (p: player) =>
   switch (p) {
-  | X => "X"
-  | O => "O"
+  | Cross => "X"
+  | Circle => "O"
   };

@@ -42,19 +42,20 @@ let make = _children => {
       (Empty, Empty, Empty),
       (Empty, Empty, Empty),
     ),
-    progress: Turn(X),
+    progress: Turn(Cross),
   },
   reducer: (action, state) =>
     switch (action, state.progress) {
     | (TokenAdded(rId, cId), Turn(p)) =>
-      let currentToken = getTokenForPlayer(p);
+      let currentToken = Mark(p);
       let updateBoard = updateBoard(state.board, rId, cId, currentToken);
       if (isWinByToken(updateBoard, rId, cId, currentToken)) {
         ReasonReact.Update({progress: Win(p), board: updateBoard});
       } else if (! isBoardFull(updateBoard)) {
         ReasonReact.Update({
           progress:
-            updateBoard === state.board ? Turn(p) : Turn(p === X ? O : X),
+            updateBoard === state.board ?
+              Turn(p) : Turn(p === Cross ? Circle : Cross),
           board: updateBoard,
         });
       } else {
@@ -65,8 +66,8 @@ let make = _children => {
   render: ({state, send}) => {
     let title =
       switch (state.progress) {
-      | Turn(p) => "Player " ++ p_to_str(p) ++ " turn"
-      | Win(p) => "Player " ++ p_to_str(p) ++ " won"
+      | Turn(p) => "Player " ++ toString(p) ++ " turn"
+      | Win(p) => "Player " ++ toString(p) ++ " won"
       | Draw => "It's a draw"
       };
     <div className="tic-tac-toe">
@@ -90,7 +91,7 @@ let make = _children => {
                  onClick=(_event => send(TokenAdded(rId, cId)))>
                  (
                    switch (getToken(state.board, rId, cId)) {
-                   | Board.X =>
+                   | Mark(Cross) =>
                      <Lottie
                        options={
                          animationData: animationDataPlayer1,
@@ -98,7 +99,7 @@ let make = _children => {
                          autoplay: true,
                        }
                      />
-                   | Board.O =>
+                   | Mark(Circle) =>
                      <Lottie
                        options={
                          animationData: animationDataPlayer2,
@@ -106,8 +107,7 @@ let make = _children => {
                          autoplay: true,
                        }
                      />
-                   | Empty =>
-                     ReasonReact.stringToElement(token_to_str(Empty))
+                   | Empty => ReasonReact.stringToElement("")
                    }
                  )
                </div>

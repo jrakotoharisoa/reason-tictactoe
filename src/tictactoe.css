@@ -13,7 +13,7 @@
   color: white;
   background-color: #222;
   padding: 20px;
-  margin-bottom: 4vh;
+  margin-bottom: 1vh;
   text-transform: uppercase;
   text-align: center;
 }
@@ -45,4 +45,21 @@
   font-size: 12vw;
   font-weight: bold;
   padding: 2vh 4vw;
+}
+
+.action-bar {
+  align-self: center;
+}
+
+.action-bar__button-restart {
+  background: transparent;
+  -webkit-appearance: none;
+  border: 2px black solid;
+  margin-bottom: 1vh;
+  font-size: 3vw;
+}
+
+.action-bar__button-restart:hover {
+  background: black;
+  color: white;
 }
