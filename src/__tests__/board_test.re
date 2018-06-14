@@ -1,6 +1,6 @@
-open Jest;
-
 open Board;
+open Jest;
+open Expect;
 
 type case = (rowId, colId, token);
 
@@ -27,7 +27,7 @@ describe("getToken", () => {
     "should return the right token for board coordinates",
     testCases,
     ((rId, cId, expectedToken)) =>
-    Expect.(expect(getToken(board, rId, cId)) |> toEqual(expectedToken))
+    expect(getToken(board, rId, cId)) |> toEqual(expectedToken)
   );
 });
 
@@ -48,7 +48,7 @@ describe("updateBoard", () => {
       (Empty, Empty, Empty),
       (Empty, Empty, Empty),
     );
-    Expect.(expect(actual) |> toEqual(expected));
+    expect(actual) |> toEqual(expected);
   });
   test("should return same board if token in rowId and colId is not Empty", () => {
     /* Given */
@@ -60,7 +60,7 @@ describe("updateBoard", () => {
     /* When */
     let actual = updateBoard(board, R1, C1, Mark(Circle));
     /* Then */
-    Expect.(expect(actual) |> toBe(board));
+    expect(actual) |> toBe(board);
   });
 });
 
@@ -75,7 +75,7 @@ describe("isBoardFull", () => {
     /* When */
     let actual = isBoardFull(board);
     /* Then */
-    Expect.(expect(actual) |> toBe(true));
+    expect(actual) |> toBe(true);
   });
   test("should return false if board is not full", () => {
     /* Given */
@@ -87,7 +87,7 @@ describe("isBoardFull", () => {
     /* When */
     let actual = isBoardFull(board);
     /* Then */
-    Expect.(expect(actual) |> toBe(false));
+    expect(actual) |> toBe(false);
   });
 });
 
@@ -98,7 +98,7 @@ describe("isLineFullWith", () => {
     /* When */
     let actual = isLineFullWith(Mark(Cross), line);
     /* Then */
-    Expect.(expect(actual) |> toEqual(false));
+    expect(actual) |> toEqual(false);
   });
   test("should return false if Full without given token", () => {
     /* Given */
@@ -106,7 +106,7 @@ describe("isLineFullWith", () => {
     /* When */
     let actual = isLineFullWith(Mark(Circle), line);
     /* Then */
-    Expect.(expect(actual) |> toEqual(false));
+    expect(actual) |> toEqual(false);
   });
   test("should return true if Full with given token", () => {
     /* Given */
@@ -114,7 +114,7 @@ describe("isLineFullWith", () => {
     /* When */
     let actual = isLineFullWith(Mark(Cross), line);
     /* Then */
-    Expect.(expect(actual) |> toEqual(true));
+    expect(actual) |> toEqual(true);
   });
 });
 
@@ -127,7 +127,7 @@ describe("getRowLine", () => {
   let (r1, r2, r3) = board;
   let testCases = [(R1, r1), (R2, r2), (R3, r3)];
   testAll("should return correct row", testCases, ((rId, expectedRow)) =>
-    Expect.(expect(getRowLine(board, rId)) |> toEqual(expectedRow))
+    expect(getRowLine(board, rId)) |> toEqual(expectedRow)
   );
 });
 
@@ -143,6 +143,6 @@ describe("getColumnLine", () => {
     (C3, (Mark(Cross), Empty, Mark(Cross))),
   ];
   testAll("should return correct col", testCases, ((cId, expectedColumn)) =>
-    Expect.(expect(getColumnLine(board, cId)) |> toEqual(expectedColumn))
+    expect(getColumnLine(board, cId)) |> toEqual(expectedColumn)
   );
 });
